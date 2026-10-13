@@ -41,7 +41,7 @@ PacketPath NetworkRouter::compute_optimal_path(
 
             // Skip blacklisted nodes
             if (blacklisted_nodes.count(v)) continue;
-            
+
             if (min_latency[u] + latency < min_latency[v]) {
                 min_latency[v] = min_latency[u] + latency;
                 parent[v] = u;
@@ -54,5 +54,16 @@ PacketPath NetworkRouter::compute_optimal_path(
     result.exists = false;
     result.is_safe = false;
     result.total_latency = 0.0;
+    return result;
+    result.exists = true;
+    result.total_latency = min_latency[dest];
+    result.is_safe = true;
+
+    // Backtrack path reconstruction: Destination se source traverse karke reverse karna
+    for (int curr = dest; curr != -1; curr = parent[curr]) {
+        result.path.push_back(curr);
+    }
+    std::reverse(result.path.begin(), result.path.end());
+
     return result;
 }
