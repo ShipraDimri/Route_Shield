@@ -11,6 +11,10 @@ PacketPath NetworkRouter::compute_optimal_path(
 ) {
     std::vector<double> min_latency(total_nodes, std::numeric_limits<double>::infinity());
     std::vector<int> parent(total_nodes, -1);
+    
+    if(blacklisted_nodes.count(src)||blacklisted_nodes.count(dest)){
+        return {{},0.0,false,false};
+    }
 
     // Min-heap priority queue: pair<latency, node_id>
     std::priority_queue<std::pair<double, int>, 
@@ -35,6 +39,9 @@ PacketPath NetworkRouter::compute_optimal_path(
             int v = edge.first;
             double latency = edge.second;
 
+            // Skip blacklisted nodes
+            if (blacklisted_nodes.count(v)) continue;
+            
             if (min_latency[u] + latency < min_latency[v]) {
                 min_latency[v] = min_latency[u] + latency;
                 parent[v] = u;
