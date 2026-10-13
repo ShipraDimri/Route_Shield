@@ -37,6 +37,9 @@ public:
     // Print intrusion report
     void printReport() const;
 
+    // Remove from blacklisting
+    void removeFromBlacklist(int routerID);
+
     // Return blacklist
     const std::unordered_set<int>& getBlacklist() const;
 };
