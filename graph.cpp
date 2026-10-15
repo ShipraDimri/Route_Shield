@@ -68,3 +68,32 @@ bool Graph::updateLatency(int u, int v, double latency)
         if (e.to == u) e.latency = latency;
     return true;
 }
+
+
+int Graph::getTotalNodes() const
+{
+    return totalNodes;
+}
+
+int Graph::getTotalLinks() const
+{
+    int count = 0;
+    for (const auto& l : adjList)
+        count += l.size();
+    return count / 2;   // every link is stored twice
+}
+
+const list<Edge>& Graph::getNeighbours(int id) const
+{
+    static const list<Edge> empty;
+    if (!validNode(id))
+        return empty;
+    return adjList[id];
+}
+
+bool Graph::hasLink(int u, int v) const
+{
+    if (!validNode(u) || !validNode(v))
+        return false;
+    return linkExists(u, v);
+}

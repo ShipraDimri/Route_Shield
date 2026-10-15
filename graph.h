@@ -29,6 +29,10 @@ public:
         bool addLink(int u, int v, double latency);
             bool removeLink(int u, int v);
                 bool updateLatency(int u, int v, double latency);
+                    int getTotalNodes() const;
+    int getTotalLinks() const;
+    const std::list<Edge>& getNeighbours(int id) const;
+    bool hasLink(int u, int v) const;
 };
 
 #endif
