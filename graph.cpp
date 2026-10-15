@@ -46,3 +46,13 @@ bool Graph::addLink(int u, int v, double latency)
     adjList[v].push_back({u, latency});
     return true;
 }
+
+bool Graph::removeLink(int u, int v)
+{
+    if (!validNode(u) || !validNode(v) || !linkExists(u, v))
+        return false;
+
+    adjList[u].remove_if([v](const Edge& e) { return e.to == v; });
+    adjList[v].remove_if([u](const Edge& e) { return e.to == u; });
+    return true;
+}
