@@ -33,7 +33,7 @@ void Intrusion::detectIntrusion(int routerID)
             blacklist.insert(routerID);
 
             cout << "\n=====================================\n";
-            cout << " INTRUSION ALERT\n";
+            cout << "         INTRUSION ALERT\n";
             cout << "=====================================\n";
             cout << "Router R" << routerID
                  << " has exceeded the traffic threshold.\n";
@@ -42,13 +42,28 @@ void Intrusion::detectIntrusion(int routerID)
     }
 }
 
-// Check blacklist
+// Check if router is blacklisted
 bool Intrusion::isBlacklisted(int routerID) const
 {
     return blacklist.find(routerID) != blacklist.end();
 }
 
-// Reset traffic
+// Remove router from blacklist
+void Intrusion::removeFromBlacklist(int routerID)
+{
+    if (blacklist.erase(routerID))
+    {
+        cout << "Router R" << routerID
+             << " removed from blacklist.\n";
+    }
+    else
+    {
+        cout << "Router R" << routerID
+             << " is not blacklisted.\n";
+    }
+}
+
+// Reset router traffic
 void Intrusion::resetTraffic(int routerID)
 {
     trafficCount[routerID] = 0;
@@ -71,7 +86,7 @@ void Intrusion::printBlacklist() const
     }
 }
 
-// Print report
+// Print intrusion report
 void Intrusion::printReport() const
 {
     cout << "\n========== INTRUSION REPORT ==========\n";
@@ -89,13 +104,15 @@ void Intrusion::printReport() const
         int requests = 0;
 
         if (it != trafficCount.end())
+        {
             requests = it->second;
+        }
 
         cout << "Router      : R" << router << endl;
         cout << "Traffic     : " << requests << " requests" << endl;
         cout << "Threshold   : " << threshold << " requests" << endl;
         cout << "Status      : BLACKLISTED" << endl;
-        cout << "--------------------------------------\n";
+        cout << "--------------------------------------" << endl;
     }
 }
 
