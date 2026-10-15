@@ -28,3 +28,21 @@ int Graph::addRouter()
     adjList.emplace_back();
     return totalNodes++;
 }
+
+bool Graph::addLink(int u, int v, double latency)
+{
+    if (!validNode(u) || !validNode(v) || u == v || latency <= 0)
+    {
+        cout << "Invalid link R" << u << " - R" << v << endl;
+        return false;
+    }
+    if (linkExists(u, v))
+    {
+        cout << "Link R" << u << " - R" << v << " already exists.\n";
+        return false;
+    }
+
+    adjList[u].push_back({v, latency});
+    adjList[v].push_back({u, latency});
+    return true;
+}

@@ -26,6 +26,7 @@ private:
 public:
     Graph(int n = 0);
     int addRouter();
+        bool addLink(int u, int v, double latency);
 };
 
 #endif
