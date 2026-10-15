@@ -28,6 +28,7 @@ public:
     int addRouter();
         bool addLink(int u, int v, double latency);
             bool removeLink(int u, int v);
+                bool updateLatency(int u, int v, double latency);
 };
 
 #endif

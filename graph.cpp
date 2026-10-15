@@ -56,3 +56,15 @@ bool Graph::removeLink(int u, int v)
     adjList[v].remove_if([u](const Edge& e) { return e.to == u; });
     return true;
 }
+
+bool Graph::updateLatency(int u, int v, double latency)
+{
+    if (!validNode(u) || !validNode(v) || latency <= 0 || !linkExists(u, v))
+        return false;
+
+    for (Edge& e : adjList[u])
+        if (e.to == v) e.latency = latency;
+    for (Edge& e : adjList[v])
+        if (e.to == u) e.latency = latency;
+    return true;
+}
