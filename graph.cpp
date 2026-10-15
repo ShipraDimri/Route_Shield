@@ -22,3 +22,9 @@ bool Graph::linkExists(int u, int v) const
     }
     return false;
 }
+
+int Graph::addRouter()
+{
+    adjList.emplace_back();
+    return totalNodes++;
+}
