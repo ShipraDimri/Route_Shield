@@ -25,7 +25,7 @@ private:
 
 public:
     Graph(int n = 0);
-    
+    int addRouter();
 };
 
 #endif
