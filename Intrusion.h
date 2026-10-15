@@ -9,26 +9,28 @@ class Intrusion
 private:
     std::unordered_map<int, int> trafficCount;
     std::unordered_set<int> blacklist;
-
     int threshold;
 
 public:
     // Constructor
     Intrusion(int limit = 200);
 
-    // Add one request
+    // Record one traffic request
     void addTraffic(int routerID);
 
-    // Add multiple requests
+    // Record multiple traffic requests
     void addTraffic(int routerID, int requests);
 
-    // Check if router crossed threshold
+    // Detect intrusion
     void detectIntrusion(int routerID);
 
-    // Check blacklist
+    // Check whether router is blacklisted
     bool isBlacklisted(int routerID) const;
 
-    // Reset traffic count
+    // Remove router from blacklist
+    void removeFromBlacklist(int routerID);
+
+    // Reset router traffic
     void resetTraffic(int routerID);
 
     // Print blacklist
@@ -36,9 +38,6 @@ public:
 
     // Print intrusion report
     void printReport() const;
-
-    // Remove from blacklisting
-    void removeFromBlacklist(int routerID);
 
     // Return blacklist
     const std::unordered_set<int>& getBlacklist() const;
