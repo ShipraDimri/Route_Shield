@@ -1,6 +1,7 @@
 #include "route.h"
 #include <queue>
 #include <limits>
+#include <algorithm>
 
 PacketPath NetworkRouter::compute_optimal_path(
     int total_nodes,
@@ -49,17 +50,21 @@ PacketPath NetworkRouter::compute_optimal_path(
             }
         }
     }
+PacketPath result;
 
-    PacketPath result;
-    result.exists = false;
-    result.is_safe = false;
-    result.total_latency = 0.0;
-    return result;
+    // Agar destination tak rasta hi nahi mila
+    if (min_latency[dest] == std::numeric_limits<double>::infinity()) {
+        result.exists = false;
+        result.is_safe = false;
+        result.total_latency = 0.0;
+        return result;
+    }
+
     result.exists = true;
-    result.total_latency = min_latency[dest];
     result.is_safe = true;
+    result.total_latency = min_latency[dest];
 
-    // Backtrack path reconstruction: Destination se source traverse karke reverse karna
+    // Backtrack path reconstruction
     for (int curr = dest; curr != -1; curr = parent[curr]) {
         result.path.push_back(curr);
     }
