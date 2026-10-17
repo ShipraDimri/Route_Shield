@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "graph.h"
 #include <iostream>
 using namespace std;
 
@@ -68,34 +68,6 @@ bool Graph::updateLatency(int u, int v, double latency)
         if (e.to == u) e.latency = latency;
     return true;
 }
-<<<<<<< HEAD
-
-
-vector<vector<pair<int, double>>> Graph::toAdjList() const
-{
-    vector<vector<pair<int, double>>> result(totalNodes);
-    for (int u = 0; u < totalNodes; u++)
-        for (const Edge& e : adjList[u])
-            result[u].push_back({e.to, e.latency});
-    return result;
-}
-
-void Graph::printTopology() const
-{
-    cout << "\n========== NETWORK TOPOLOGY ==========\n";
-    cout << "Routers : " << totalNodes << "   Links : " << getTotalLinks() << "\n\n";
-    for (int u = 0; u < totalNodes; u++)
-    {
-        cout << "R" << u << " -> ";
-        if (adjList[u].empty())
-            cout << "(no links)";
-        for (const Edge& e : adjList[u])
-            cout << "R" << e.to << "(" << e.latency << ") ";
-        cout << endl;
-    }
-}
-=======
-
 
 int Graph::getTotalNodes() const
 {
@@ -124,4 +96,42 @@ bool Graph::hasLink(int u, int v) const
         return false;
     return linkExists(u, v);
 }
->>>>>>> 3f907416f2fb3ae10e7d649272cc29bdfaff88eb
+
+vector<vector<pair<int, double>>> Graph::toAdjList() const
+{
+    vector<vector<pair<int, double>>> result(totalNodes);
+    for (int u = 0; u < totalNodes; u++)
+        for (const Edge& e : adjList[u])
+            result[u].push_back({e.to, e.latency});
+    return result;
+}
+
+vector<vector<pair<int, double>>> Graph::toAdjList(
+    const unordered_set<int>& blacklisted) const
+{
+    vector<vector<pair<int, double>>> result(totalNodes);
+    for (int u = 0; u < totalNodes; u++)
+    {
+        if (blacklisted.count(u))
+            continue;
+        for (const Edge& e : adjList[u])
+            if (!blacklisted.count(e.to))
+                result[u].push_back({e.to, e.latency});
+    }
+    return result;
+}
+
+void Graph::printTopology() const
+{
+    cout << "\n========== NETWORK TOPOLOGY ==========\n";
+    cout << "Routers : " << totalNodes << "   Links : " << getTotalLinks() << "\n\n";
+    for (int u = 0; u < totalNodes; u++)
+    {
+        cout << "R" << u << " -> ";
+        if (adjList[u].empty())
+            cout << "(no links)";
+        for (const Edge& e : adjList[u])
+            cout << "R" << e.to << "(" << e.latency << ") ";
+        cout << endl;
+    }
+}
