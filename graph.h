@@ -26,22 +26,23 @@ private:
 public:
     Graph(int n = 0);
     int addRouter();
-        bool addLink(int u, int v, double latency);
-            bool removeLink(int u, int v);
-                bool updateLatency(int u, int v, double latency);
-<<<<<<< HEAD
-                    // Format used by NetworkRouter::compute_optimal_path in route.h
-    std::vector<std::vector<std::pair<int, double>>> toAdjList() const;
-        // Same as toAdjList() but without any link touching a blacklisted router
-    std::vector<std::vector<std::pair<int, double>>> toAdjList(
-        const std::unordered_set<int>& blacklisted) const;
-            void printTopology() const;
-=======
-                    int getTotalNodes() const;
+    bool addLink(int u, int v, double latency);
+    bool removeLink(int u, int v);
+    bool updateLatency(int u, int v, double latency);
+
+    int getTotalNodes() const;
     int getTotalLinks() const;
     const std::list<Edge>& getNeighbours(int id) const;
     bool hasLink(int u, int v) const;
->>>>>>> 3f907416f2fb3ae10e7d649272cc29bdfaff88eb
+
+    // Format used by NetworkRouter::compute_optimal_path in route.h
+    std::vector<std::vector<std::pair<int, double>>> toAdjList() const;
+
+    // Same as toAdjList() but without any link touching a blacklisted router
+    std::vector<std::vector<std::pair<int, double>>> toAdjList(
+        const std::unordered_set<int>& blacklisted) const;
+
+    void printTopology() const;
 };
 
 #endif
