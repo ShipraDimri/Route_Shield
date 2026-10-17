@@ -21,4 +21,4 @@ run: $(TARGET)
 clean:
 	rm -f $(OBJECTS) $(TARGET)
 
-rebuild: clean al
+rebuild: clean all
