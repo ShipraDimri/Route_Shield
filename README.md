@@ -1,6 +1,7 @@
-# Route_Shield
+## Route_Shield
 Adaptive Network Routing Simulator with Real-Time Intrusion Detection &amp; Node Blacklisting in C/C++
 In real-world networks, routing engines and security monitors usually operate independently. If a router is compromised or gets flooded with traffic, standard routing algorithms keep pushing packets through it.
+
 
 Route-Shield combines both into a single system:
 Finds optimal data paths using Dijkstra's Algorithm.
@@ -10,9 +11,35 @@ Continuously tracks traffic for abnormal spikes or malicious patterns via an Int
 ---
 
 ### Key Features
-
 Network Graph Representation: Network topology modeled using Adjacency Lists.
 Dijkstra’s Routing Engine: Computes shortest paths using a Min-Heap Priority Queue.
 Congestion Handling:Router buffers managed with FIFO and Priority Queues for high-priority packets.
 Intrusion Detection: Tracks request rates per IP using Hash Maps (`std::unordered_map`) and blacklists nodes (`std::unordered_set`).
 Dynamic Rerouting: Automatically bypasses blacklisted nodes without restarting the simulation.
+
+
+# Route_Shield
+Adaptive Network Routing Simulator with
+Real-Time Intrusion Detection.
+
+
+## Features
+- Optimal path calculation using Dijkstra's algorithm.
+- Intrusion detection based on traffic thresholds.
+- Blacklisting suspicious routers.
+- Avoiding blacklisted nodes during routing.
+
+
+## Technologies Used
+- C++
+- C++17
+- Makefile
+
+
+## Build Instructions
+Run the following command in a terminal:
+make
+
+
+## Clean Build Files
+make clean
