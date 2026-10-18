@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -pedantic
 
 TARGET = route_shield
-SOURCES = route.cpp Intrusion.cpp
+SOURCES = graph.cpp route.cpp Intrusion.cpp topology.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 .PHONY: all clean rebuild
